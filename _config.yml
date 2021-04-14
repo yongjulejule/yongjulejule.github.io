@@ -4,10 +4,10 @@ highlighter:      rouge
 
 kramdown:
     input: GFM
-    syntax_highlighter: rouge
     syntax_highlighter_opts:
         block:
             line_numbers: true
+    syntax_highlighter: rouge
 # Setup
 title:           Jun's 
 tagline:          '이것 저것'
