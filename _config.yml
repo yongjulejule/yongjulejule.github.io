@@ -1,6 +1,10 @@
 # Dependencies
 markdown:         kramdown
 highlighter:      rouge
+
+kramdown:
+      input: GFM
+        syntax_highlighter: rouge
 # Setup
 title:           Jun's 
 tagline:          '이것 저것'
