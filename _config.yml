@@ -2,7 +2,7 @@
 markdown:         kramdown
 highlighter:      rouge
 # Setup
-title:           Jun's Blog 
+title:           Jun's 
 tagline:          '이것 저것'
 description:     이것 저것 쓰는 블로그 
 url:              https://chatsh1re.github.io
