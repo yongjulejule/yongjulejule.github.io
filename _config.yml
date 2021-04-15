@@ -6,7 +6,7 @@ kramdown:
     input: GFM
     syntax_highlighter: rouge
     syntax_highlighter_opts:
-        css_class: 'highlighter'
+        css_class: 'highlight'
         span:
             line_numbers: false
         block:
@@ -27,7 +27,7 @@ remote_theme: fongandrew/hydeout
 
 author:
   name:           'Jun'
-  url:            https://twitter.com/fongandrewc
+  url:            #https://twitter.com/fongandrewc
 
 paginate:         5
 # paginate_path:    '/page:num'
