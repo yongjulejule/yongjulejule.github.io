@@ -1,5 +1,5 @@
 .highlight table td { padding: 5px; 
-background-color = black}
+background-color: black !important}
 .highlight table pre { margin: 0; }
 .highlight .gh {
   color: #999999;
@@ -137,47 +137,47 @@ background-color = black}
 }
 .highlight .vc {
   color: #ffffff;
-  background-color: #272822;
+  background-color: black;
 }
 .highlight .nn {
   color: #ffffff;
-  background-color: #272822;
+  background-color: black;
 }
 .highlight .nl {
   color: #ffffff;
-  background-color: #272822;
+  background-color: black;
 }
 .highlight .ni {
   color: #ffffff;
-  background-color: #272822;
+  background-color: black;
 }
 .highlight .bp {
   color: #ffffff;
-  background-color: #272822;
+  background-color: black;
 }
 .highlight .vg {
   color: #ffffff;
-  background-color: #272822;
+  background-color: black;
 }
 .highlight .vi {
   color: #ffffff;
-  background-color: #272822;
+  background-color: black;
 }
 .highlight .nv, .highlight .vm {
   color: #ffffff;
-  background-color: #272822;
+  background-color: black;
 }
 .highlight .w {
   color: #ffffff;
-  background-color: #272822;
+  background-color: black;
 }
 .highlight {
   color: #ffffff;
-  background-color: #272822;
+  background-color: black;
 }
 .highlight .n, .highlight .py, .highlight .nx {
   color: #ffffff;
-  background-color: #272822;
+  background-color: black;
 }
 .highlight .ow {
   color: #f92672;
