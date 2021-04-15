@@ -6,7 +6,7 @@ kramdown:
     input: GFM
     syntax_highlighter: rouge
     syntax_highlighter_opts:
-        css_class: 'syntax'
+        css_class: 'highlighter'
         span:
             line_numbers: false
         block:
