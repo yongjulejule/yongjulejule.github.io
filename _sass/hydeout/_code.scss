@@ -36,8 +36,8 @@ pre code {
   border-radius: 0.25rem;
   font-size: 0.8rem;
   line-height: 1.4;
-  margin-bottom: 1rem;
-  padding: 1rem;
+  margin-bottom: 0rem;
+  padding: 0.25rem;
 
   pre {
     margin-bottom: 0;
@@ -46,9 +46,9 @@ pre code {
 
   .lineno {
     color: #999;
-    display: inline-block; // Ensures the null space also isn't selectable
-    padding-left: 0.25rem;
-    padding-right: 0.75rem;
+    //display: inline-block; // Ensures the null space also isn't selectable
+    //padding-left: 0.25rem;
+    //padding-right: 0.75rem;
     user-select: none; // Make sure numbers aren't selectable
   }
 }

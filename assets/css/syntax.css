@@ -1,7 +1,7 @@
 .highlight table td { 
 	padding: 5px; 
 	background-color: black !important;
-	border: 1px solid #aaa;
+	border: 1px solid #5f5606 !important;
 }
 .highlight table pre { margin: 0; }
 .highlight .gh {
@@ -32,6 +32,7 @@
 }
 .highlight .c1 {
   color: #8977ad;
+  font-style: italic;
 }
 .highlight .cs {
   color: #8977ad;
