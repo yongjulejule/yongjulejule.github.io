@@ -10,8 +10,8 @@ layout: default
 
   <div class="post-body">
     {{ content }}
-	<small>{{ post.modfied | date_to_string }}</small>
     {% include post-tags.html post=page %}
+	<small>{{ page.last_modified_at | date_to_string }}</small>
   </div>
 
   {% include comments.html %}
