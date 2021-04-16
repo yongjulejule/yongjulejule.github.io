@@ -11,7 +11,8 @@ layout: default
   <div class="post-body">
     {{ content }}
     {% include post-tags.html post=page %}
-	<small><em><font color = "#8977ad">modfied:{{ page.last_modified_at | date_to_string}}</font></em></small>
+	<small><em><font color = "#8977ad">
+				<p style = "text-align:right;">modfied:{{ page.last_modified_at | date_to_string}}</p></font></em></small>
   </div>
 
   {% include comments.html %}
