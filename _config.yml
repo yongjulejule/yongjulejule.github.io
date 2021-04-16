@@ -37,6 +37,7 @@ plugins:
   - jekyll-feed
   - jekyll-gist
   - jekyll-paginate
+  - jekyll-last-modified-at
 
 # Sidebar link settings
 sidebar_home_link:  true
