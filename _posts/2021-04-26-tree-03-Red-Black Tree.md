@@ -11,7 +11,7 @@ tags:
 - Red-BlackTree
 order: 3
 date: '2021-04-26 10:01:00 +0900'
-last_modified_at: '2021-04-26 17:55:00 +0900'
+last_modified_at: '2021-04-27 09:16:00 +0900'
 
 
 ---
@@ -179,8 +179,273 @@ Case 3에서는 색깔을 바꿔주고 회전을 하기 때문에 property 5를 
 
 ## Code(c)
 
+이번에도 역시 코드가 너무 길어져서 헤더파일 / 틀 / 삽입 / 회전 으로 나누었다.
+
+### 헤더파일
+
+트리 노드를 위한 구조체와 컬러를 위한 `enum` 을 선언하였다. `RED`, `BLACK`에 자동으로 0과 1로 할당이 되었고, 임의의 값을 줄 수도 있다고 한다. 그냥 `%d`로 프린트를 하면 0과 1로 출력되지만(원본은 `unsigned int`라고 한다), 흥미롭게도 lldb에서 변수 명을 보면 `RED`, `BLACK` 이렇게 문자 그대로 출력된다. 
+
 ```c
+#ifndef RBT_H
+# define RBT_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+typedef enum	e_Color{
+	RED, 
+	BLACK
+}				t_Color;
+
+typedef struct	s_rbt{
+	int				key;
+	t_Color			color;
+	struct s_rbt	*parent;
+	struct s_rbt	*left;
+	struct s_rbt	*right;
+}				t_rbt;
+
+t_rbt	**RBinsert(t_rbt **root,t_rbt *nil, int key);
+void	rightRotate(t_rbt **root, t_rbt *nil);
+void	leftRotate(t_rbt **root, t_rbt *nil);
+
+#endif
 ```
 
+### 메인 소스
 
+`nil` 구조체와 `main` 함수, 출력, `free` 함수 파일이며 `free` 는 이번에도 후위 순회를 통해 하였고 `leaks` 를 통해 누수가 없음을 확인하였다. 주석 부분은 이 게시글의 첫번째 그림과 같은 트리를 만들어 비교하기 위해 썼던 데이터이다.
+
+```c
+#include "rbt.h"
+
+t_rbt	*makeNil(t_rbt *nil)
+{
+	nil->parent = NULL;
+	nil->left = NULL;
+	nil->right = NULL;
+	nil->key = 0;
+	nil->color = BLACK;
+	return (nil);
+}
+
+void	inOrdertoPrint(t_rbt *tree, t_rbt *nil)
+{
+	if (tree != nil)
+	{
+		inOrdertoPrint(tree->left, nil);
+		printf("key : %d, color : %d\n", tree->key, tree->color);
+		inOrdertoPrint(tree->right, nil);
+	}
+}
+
+void	postOrdertoFree(t_rbt *tree,t_rbt *nil)
+{
+	if (tree != nil)
+	{
+		postOrdertoFree(tree->left, nil);
+		postOrdertoFree(tree->right, nil);
+		free(tree);
+	}
+}
+int 	main(void)
+{
+	t_rbt **root;
+	t_rbt *nil;
+	int i;
+	int j = 0;
+	nil = (t_rbt*)malloc(sizeof(t_rbt));
+	nil = makeNil(nil);
+	root = (t_rbt**)malloc(sizeof(t_rbt*));
+	*root = nil;
+	srand(42);
+
+	//	int a[20]={26,17,41,14,21,30,47,10,16,19,23,28,38,7,12,15,20,35,39,3};
+	while (j < 100)
+	{
+		i = rand() % 20000 + 1;
+
+		//		RBinsert(root, nil, a[j]);
+		RBinsert(root, nil, i);
+		j++;
+	}
+	RBinsert(root, nil, 4242);
+	while ((*root)->parent != nil)
+		*root = (*root)->parent;
+	inOrdertoPrint(*root, nil);
+	postOrdertoFree(*root, nil);
+	free(root);
+	free(nil);
+}
+```
+
+### 삽입 부분
+
+BST, AVL Tree와 거의 동일한 방법으로 삽입을 하였으며 이전과 달리 `color` 를 고려해야 하므로 새로운 노드는 일단 `RED` 컬러를 할당한 뒤 `RBinsertFixup` 에서 레드블랙 트리 구조로 변환하였다. 이때 구조를 변화 시키면서 `root`노드가 바뀌는 경우, 함수가 끝나고 `main`함수로 갔을 때 `root`를 가리키지 않는 경우가 생겼는데,` RBinsert` 함수에서 `root` 조건체크를 수행하고 `return` 해주는 방식으로 해결하였다.
+
+변수명을 깔끔하게 적고 싶었으나 디버깅 하면서 너무 헷갈려서 교재와 동일하게 맞추었다... 
+
+```c
+#include "rbt.h"
+
+void	initNode(t_rbt *newnode, t_rbt *nil, int key)
+{
+	newnode->parent = nil;
+	newnode->left = nil;
+	newnode->right = nil;
+	newnode->key = key;
+}
+
+void	RBinsertFixup(t_rbt **newnode, t_rbt *nil)
+{
+	t_rbt *y;
+	t_rbt *z;
+
+	z = *newnode;
+	while (z->parent->color == RED)
+	{
+		if (z->parent == z->parent->parent->left) //부모 노드가 left인경우
+		{	
+			y = z->parent->parent->right; //y 는 uncle
+			if (y->color == RED) //Case 1.
+			{
+				z->parent->color = BLACK;
+				y->color = BLACK;
+				z->parent->parent->color = RED;
+				z = z->parent->parent;
+			}
+			else //case 2, 3
+			{
+				if (z == z->parent->right) //case 2
+				{
+					z = z->parent;
+					leftRotate(&z, nil);
+				}
+				z->parent->color = BLACK; // case 3
+				z->parent->parent->color = RED;
+				rightRotate(&z->parent->parent, nil);
+			}
+		}
+		else //부모 노드가 right인 경우. symmetric한 구조라서 좌우만 바꾸면 됨
+		{
+			y = z->parent->parent->left;
+			if (y->color == RED)
+			{
+				z->parent->color = BLACK;
+				y->color = BLACK;
+				z->parent->parent->color = RED;
+				z = z->parent->parent;
+			}
+			else
+			{
+				if (z == z->parent->left)
+				{
+					z = z->parent;
+					rightRotate(&z, nil);
+				}
+				z->parent->color = BLACK;
+				z->parent->parent->color = RED;
+				leftRotate(&z->parent->parent, nil);
+			}
+		}
+	}
+	if (z->parent == nil) //이때는 root 노드가 된다.
+		z->color = BLACK;
+}
+
+t_rbt	**RBinsert(t_rbt **root,t_rbt *nil, int key)
+{
+	t_rbt *y;
+	t_rbt *x;
+	t_rbt *newnode;
+
+	newnode = (t_rbt*)malloc(sizeof(t_rbt));
+	initNode(newnode, nil, key);
+	y = nil;
+	x = *root;
+	while (x != nil)
+	{
+		y = x;
+		if (key < x->key)
+			x = x->left;
+		else x = x->right;
+	}
+	newnode->parent = y;
+	if (y == nil)
+		*root = newnode;
+	else if (key < y->key)
+		y->left = newnode;
+	else y->right = newnode;
+	newnode->color = RED;
+	RBinsertFixup(&newnode, nil);
+	if((*root)->parent != nil)
+		(*root) = (*root)->parent;;
+	return (root);
+}
+```
+
+### 회전
+
+AVL Tree의 회전 부분이랑 동일하다.
+
+```c
+#include "rbt.h"
+
+void	leftRotate(t_rbt **rbt, t_rbt *nil)
+{
+	t_rbt *x;
+	t_rbt *y;
+
+	x = *rbt;
+	y = x->right;
+	x->right = y->left;
+	if (y->left != nil)
+		y->left->parent = x;
+	if (x->parent == nil)
+		y->parent = nil;
+	else if (x == x->parent->left)
+		x->parent->left = y;
+	else
+		x->parent->right = y;
+	y->parent = x->parent;
+	y->left = x;
+	x->parent = y;
+}
+
+void	rightRotate(t_rbt **rbt, t_rbt *nil)
+{
+	t_rbt *x;
+	t_rbt *y;
+
+	x = *rbt;
+	y = x->left;
+	x->left = y->right;
+	if (y->right != nil)
+		y->right->parent = x;
+	if (x->parent == nil)
+		y->parent = nil;
+	else if (x == x->parent->left)
+		x->parent->left = y;
+	else
+		x->parent->right = y;
+	y->parent = x->parent;
+	y->right = x;
+	x->parent = y;
+}
+```
+
+전체 코드는 [깃허브](https://github.com/chatsh1re/Algorithm/tree/master/tree/Red_black)에서 볼 수 있으며 `make` 명령어를 통해 컴파일해서 확인할 수 있다. (Unix환경에서 gcc 컴파일러를 사용했습니다.)
+
+## 삽질🤦
+
+무슨일인지 모르겠지만, 중위순회시 순서가 꼬이는 오류가 발생하였다. BST와 동일한 알고리즘을 사용했기에 오름차순으로 값이 나와야 하는데 중간에 이상한 값이 들어 있었고 색깔도 다 꼬여있었다. 단순 삽입에는 문제가 없었으니 Rotation 부분이 에러인것 같다. pseudo code 보면서 완전히 이해했다고 생각했는데 왜지??? lldb를 열심히 돌려본 결과, RBinsert에 들어오는 root 노드가 RBinsertFixup과정에서 바뀌게 되면 반영되지 않는다는점이 문제란 것을 알아냈다. 
+
+값은 잘 정렬되어 나오는데 책의 그림과 같은 예시를 넣어 봤는데 color가 달라서 당황했지만, 생각해보니 정렬되어 나왔다는 것이 목적에 이미 부합한 것이고 트리는 값을 넣는 순서에 따라 구조가 조금씩 달라질 수 있다는 것이 생각나서 납득하였다. 그래서 책의 그림과 똑같이 나오도록 삽입 순서를 잡아주니 색깔까지 똑같은 답이 나왔다! 
+
+AVL에서도 느꼈지만, 트리와 회전 개념이 들어가다 보니 포인터가 살짝만 꼬여도 디버깅하는데 오래 걸리고 자식노드와 부모노드 양 방향에서 서로를 가리키게 하다 보니 실수도 잦았다. 만들어놓고 쓰는게 아닌 이상 그때그때 이런 코드를 짜서 쓰는건 힘들것 같다... 
+
+## 참조
+
+_Introduce to Algorithms, 3rd Edition_
 
