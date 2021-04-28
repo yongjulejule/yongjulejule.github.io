@@ -189,9 +189,9 @@ Case 3에서는 색깔을 바꿔주고 회전을 하기 때문에 property 5를 
 #ifndef RBT_H
 # define RBT_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <time.h>
 
 typedef enum	e_Color{
 	RED, 
@@ -206,6 +206,7 @@ typedef struct	s_rbt{
 	struct s_rbt	*right;
 }				t_rbt;
 
+t_rbt	**initRBDeletion(t_rbt **root, t_rbt *nil, int key);
 t_rbt	**RBinsert(t_rbt **root,t_rbt *nil, int key);
 void	rightRotate(t_rbt **root, t_rbt *nil);
 void	leftRotate(t_rbt **root, t_rbt *nil);
