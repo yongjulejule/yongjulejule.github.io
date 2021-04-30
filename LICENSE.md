@@ -1,5 +1,9 @@
 # Released under MIT License
 
+Copyright (c) 나.
+
+블로그 테마hydeout Copyright
+
 Copyright (c) 2013 Mark Otto.
 
 Copyright (c) 2017 Andrew Fong.
