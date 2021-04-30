@@ -38,6 +38,7 @@ plugins:
   - jekyll-gist
   - jekyll-paginate
   - jekyll-last-modified-at
+  - jekyll-sitemap
 
 # Sidebar link settings
 sidebar_home_link:  true
