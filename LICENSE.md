@@ -1,8 +1,8 @@
+# Blog Contents
+
+Copyright (c) JUN
+
 # Released under MIT License
-
-Copyright (c) 나.
-
-블로그 테마hydeout Copyright
 
 Copyright (c) 2013 Mark Otto.
 
