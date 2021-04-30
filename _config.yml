@@ -48,3 +48,5 @@ sidebar_home_link:  true
                                 # to enable a separate blog link.
 disqus:
     shortname: chatsh1re
+
+google_analytics : UA-195952153-1
