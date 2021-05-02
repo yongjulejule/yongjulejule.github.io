@@ -29,7 +29,7 @@ last_modified_at: '2021-05-02 12:55:00 +0900'
 
 Comprision Sort 알고리즘은 의사 결정 트리로 나타낼 수 있으며, 의사 결정 트리는 모든 데이터와 특정한 값 n을 비교하여 결과를 낼 수 있다.  예를 들어, 3개의 원소에 대한$(n = 3)$ 의사 결정 트리는 다음과 같이 구성된다.
 
-![Decision Tree]()
+![Decision Tree](https://github.com/chatsh1re/chatsh1re.github.io/blob/master/_posts/images/linear_time_sort/Decision%20Tree.png?raw=true)
 
 `x`는 새로운 데이터이고, `A[]`는 입력 되어 있던 데이터라고 하자. 그림과 같이 트리의 구조로 탐색을 할 수 있으며 각 `leaf`는 모든 데이터와 대소 비교 한 결과가 된다.
 
@@ -47,7 +47,7 @@ n개의 데이터가 이미 정렬되어 있을 때 어떤 데이터 x를 찾는
 
 세개의 데이터를 정렬하는 의사 결정 트리는 조금 더 복잡하게 생겼는데, 3가지 원소{1, 2, 3}을 정렬하는 경우 다음과 같은 트리를 이용하여 경우의 수 들을 찾을 수 있다.
 
-![Decision Tree Sort]()
+![Decision Tree Sort](https://github.com/chatsh1re/chatsh1re.github.io/blob/master/_posts/images/linear_time_sort/Decision%20Tree%20Sort.png?raw=true)
 
 이와 같이 모든 경우의 수를 고려한다면 하나의 순열이 되므로 $n!$ 이 되며 여기서는 3개의 원소가 있으므로 $3!$ 개가 나온다. 
 
@@ -113,7 +113,7 @@ Line 9 ~ 11의 반복문은 `A[]` 의 각 원소들을 `B[]` 에 올바르게 �
 
 다음은  `A[1...8]` 에 대해 계수 정렬을 하는 과정이다. A의 원소는 모두 5보다 같거나 작은 양의 정수이다.(즉 k = 5 이다.) 
 
-![Counting Sort]()
+![Counting Sort](https://github.com/chatsh1re/chatsh1re.github.io/blob/master/_posts/images/linear_time_sort/Counting%20Sort.png?raw=true)
 
 >(a) Line 6 이후 배열 `A[]`와  `C[]`의 모습이다. 0이 2개 있어서 `C[0] = 2`, 1이 0개 있으니 `C[1] = 0`, 3이 3개 있으니 `C[3] = 3`이 되는 구조이다.
 >
@@ -130,13 +130,82 @@ Line 3 ~ 4에 해당하는 반복문은 $\Theta(k)$ 의 시간이 걸리고, Lin
 ### Code(C)
 
 ```c
+#include<stdio.h>
+#include<stdlib.h>
+#define SIZE 42 // n과 같음
+#define MAX_VALUE 21 //k와 같음 
+
+//origin = A, sorted = B, tmp = C
+int		*countingSort(int *origin, int *sorted)
+{
+	int tmp[MAX_VALUE];
+	int i;
+	int j;
+
+	i = 0;
+	j = 1;
+	while (i < MAX_VALUE)
+	{
+		tmp[i] = 0;
+		i++;
+	}
+	while (j < SIZE)
+	{
+		tmp[origin[j]]++;
+		j++;
+	}
+	i = 1;
+	while (i < MAX_VALUE)
+	{
+		tmp[i] = tmp[i] + tmp[i-1];
+		i++;
+	}
+	while (0 < j)
+	{
+		sorted[tmp[origin[j]]] = origin[j];
+		tmp[origin[j]] = tmp[origin[j]] - 1;
+		j--;
+	}
+	return (sorted);
+}
+
+int		main(void)
+{
+	int *origin;
+	int *sorted;
+	int i;
+
+	i = 1;
+	sorted = (int*)malloc(sizeof(int)*SIZE);
+	if (sorted == NULL)
+		return 1;
+	origin = (int*)malloc(sizeof(int)*SIZE);
+	if (origin == NULL)
+		return 1;
+	srand(42);
+	while (i < SIZE)
+	{
+		origin[i] = rand()%MAX_VALUE;
+		printf("%dth origin data is %d\n", i, origin[i]);
+		i++;
+	}
+	sorted = countingSort(origin, sorted);
+	i = 1;
+	while (i < SIZE)
+	{
+		printf("%dth sorted data is %d\n", i, sorted[i]);
+		i++;
+	}
+	free(sorted);
+	free(origin);
+}
 ```
 
 ## Radix Sort (기수정렬)
 
 기수 정렬은 상당히 직관적인데, 만약 d자리의 수가 있다면 각 숫자의 가장 끝자리부터 첫째 자리 까지 순차적으로 정렬을 하는 알고리즘이다. 예를 들어 3자리 수를 정렬한다면 다음 그림과 같다.
 
-![Radix Sort]()
+![Radix Sort](https://github.com/chatsh1re/chatsh1re.github.io/blob/master/_posts/images/linear_time_sort/Radix%20Sort.png?raw=true)
 
 또한 10진수 뿐만 아니라 임의의 b 진법으로 이루어진 데이터를 정렬할 수 있는데, b 진법 수인 k의 자릿수 d는 $d=log_bk$가 되며, 각 자릿수는 0부터 b-1까지의 수여야 한다.
 
