@@ -16,7 +16,7 @@ kramdown:
 title:           Jun's 
 tagline:          '이것 저것'
 description:     이것 저것 쓰는 블로그 
-url:              https://chatsh1re.github.io
+url:              https://yongjulejule.github.io
 baseurl:          ''
                   # the optional subpath of your site, e.g. "/blog"
                   # NB: This applies to all pages in your Jekyll site.
