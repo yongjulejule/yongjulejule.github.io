@@ -13,7 +13,6 @@ kramdown:
       line_numbers: true
       start_line: 1
 # Setup
-<<<<<<< HEAD
 title: Jun's
 tagline: "이것 저것"
 description: 이것 저것 쓰는 블로그
@@ -25,18 +24,6 @@ baseurl:
   # If you want to move just the blog index pages but keep
   # other pages at root, see the paginate_path and
   # sidebar_blog_link below.
-=======
-title:           Jun's 
-tagline:          '이것 저것'
-description:     이것 저것 쓰는 블로그 
-url:              https://yongjulejule.github.io
-baseurl:          ''
-                  # the optional subpath of your site, e.g. "/blog"
-                  # NB: This applies to all pages in your Jekyll site.
-                  # If you want to move just the blog index pages but keep
-                  # other pages at root, see the paginate_path and
-                  # sidebar_blog_link below.
->>>>>>> 344933d60cf09ac98e02ebadae796cc2142ed144
 remote_theme: fongandrew/hydeout
 
 author:
