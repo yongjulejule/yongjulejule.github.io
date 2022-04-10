@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://chatsh1re.github.io/sitemap.xml
+Sitemap: https://yongjulejule.github.io/sitemap.xml

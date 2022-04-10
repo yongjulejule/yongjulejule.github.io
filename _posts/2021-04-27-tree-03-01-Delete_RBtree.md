@@ -149,7 +149,7 @@ Line 2부터 Line 23까지 `while`문의 목표는 다음과 같다.
 
 이 반복문을 도는 동안 `x`는 항상 루트가 아닌 doubly-black 노드를 가리킨다. 이 `x`는 doubly black이기 때문에 `x`의 자매 노드인 `w`는 nil이 될 수 없다. 그렇지 않으면 `x.parent`(singly black)로부터 `leaf`인 `w`까지 simple path에서 `BLACK`의 수는 `x.parent` 부터 `x`까지 simple path의 `BLACK`의 수보다 작아지게 되기 때문이다.
 
-![FIgure 0. whole image](https://github.com/chatsh1re/chatsh1re.github.io/blob/master/_posts/images/RB%20Tree/whole.png?raw=true)
+![FIgure 0. whole image](https://github.com/yongjulejule/yongjulejule.github.io/blob/master/_posts/images/RB%20Tree/whole.png?raw=true)
 
 여기서 4가지 case가 나오는데, 각 케이스들이 Property 5를 유지하는 방법을 살펴보고 어떻게 진행되는지 분석해보자. 
 
@@ -157,7 +157,7 @@ Line 2부터 Line 23까지 `while`문의 목표는 다음과 같다.
 
 ***Case 1: x의 자매노드 w가 RED***
 
-![Figure 1. (a)](https://github.com/chatsh1re/chatsh1re.github.io/blob/master/_posts/images/RB%20Tree/case 1.png?raw=true)
+![Figure 1. (a)](https://github.com/yongjulejule/yongjulejule.github.io/blob/master/_posts/images/RB%20Tree/case 1.png?raw=true)
 
 *Case 1은 B와 D의 색깔을 서로 바꾸고 `leftRotate`를 하여 Case 2, 3, 4로 바꿔준다.*
 
@@ -167,7 +167,7 @@ Line 2부터 Line 23까지 `while`문의 목표는 다음과 같다.
 
 ***Case 2: x의 자매노드 w가 BLACK이고 w의 두 자식 노드가 BLACK***
 
-![Figure 2. (b)](https://github.com/chatsh1re/chatsh1re.github.io/blob/master/_posts/images/RB%20Tree/case 2.png?raw=true)
+![Figure 2. (b)](https://github.com/yongjulejule/yongjulejule.github.io/blob/master/_posts/images/RB%20Tree/case 2.png?raw=true)
 
 *Case 2는 노드 D를 `RED`로 칠하고 `x`가 B를 가리키게 하여 `x`에 의해 나타난 extra black를  트리의 위로 올린다. 만약 Case1을 통하여 Case 2가 진행되면 새로운 노드 `x`가 red-and-black이므로 반복문이 종료될 것이며 그러므로 `c`의 색깔은 RED가 될 것이다.*
 
@@ -177,7 +177,7 @@ Line 2부터 Line 23까지 `while`문의 목표는 다음과 같다.
 
 ***Case 3: x의 자매노드 w가 BLACK이고 w의 left가 RED이며 w의 right는 BLACK인 경우***
 
-![Figure 3. (c)](https://github.com/chatsh1re/chatsh1re.github.io/blob/master/_posts/images/RB%20Tree/case 3.png?raw=true)
+![Figure 3. (c)](https://github.com/yongjulejule/yongjulejule.github.io/blob/master/_posts/images/RB%20Tree/case 3.png?raw=true)
 
 *Case 3은 노드 C와 D의 색깔을 바꾸고 `rightRotate`를 하여 Case 4로 바꿔준다.*
 
@@ -187,7 +187,7 @@ Line 2부터 Line 23까지 `while`문의 목표는 다음과 같다.
 
 ***Case 4: x의 자매노드 w가 BLACK이고, w의 right가 RED인 경우***
 
-![Figure 4. (d)](https://github.com/chatsh1re/chatsh1re.github.io/blob/master/_posts/images/RB%20Tree/case 4.png?raw=true)
+![Figure 4. (d)](https://github.com/yongjulejule/yongjulejule.github.io/blob/master/_posts/images/RB%20Tree/case 4.png?raw=true)
 
 *Case 4는 `x`에 의해 나타난 extra black를 다른 `color`로 바꿔 레드블랙 Properties를 위반하지 않게 한 뒤 `leftRotate`를 하여 반복문을 종료시킨다.*
 
@@ -370,7 +370,7 @@ t_rbt	**initRBDeletion(t_rbt **root, t_rbt *nil, int key)
 }
 ```
 
-원본 코드는 [깃허브](https://github.com/chatsh1re/Algorithm/tree/master/tree/Red_black) 에 있으며 make명령어를 통해 컴파일하여 확인해 볼 수 있다.
+원본 코드는 [깃허브](https://github.com/yongjulejule/Algorithm/tree/master/tree/Red_black) 에 있으며 make명령어를 통해 컴파일하여 확인해 볼 수 있다.
 
 ## 여담
 

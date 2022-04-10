@@ -64,7 +64,7 @@ last_modified_at: '2021-04-27 09:16:00 +0900'
 >
 >  $h \le 2lg(n+1)~~\blacksquare$
 
-![Figure 1](https://github.com/chatsh1re/chatsh1re.github.io/blob/master/_posts/images/RB%20Tree/Figure1.png?raw=true)
+![Figure 1](https://github.com/yongjulejule/yongjulejule.github.io/blob/master/_posts/images/RB%20Tree/Figure1.png?raw=true)
 
 *노드 옆의 숫자는 black-height 이며 검은색 노드가 `black` 노드, 회색 노드가 `red` 이다.*
 
@@ -127,7 +127,7 @@ RBinsertFixup(T, z)
 T.root.color = BLACK;//z가 root 노드였을 경우 red일테니 black로 바꿔준다.
 ```
 
-![Figure 2](https://github.com/chatsh1re/chatsh1re.github.io/blob/master/_posts/images/RB%20Tree/Figure2.png?raw=true)
+![Figure 2](https://github.com/yongjulejule/yongjulejule.github.io/blob/master/_posts/images/RB%20Tree/Figure2.png?raw=true)
 
 > (a)는 `z`를 삽입한 직후이다. 새로운 노드를 `red` 로 삽입하여 _Property 4_를 위반하였고 `z`의 uncle y가 `red` 이기 때문에 _case 1_이 된다. 코드를 진행하며 `color`를 재설정 하고 `z`의 위치를 옮기게 되어 (b)의 형태가 된다. 그리고 여전히 `z`가 `red` 이므로 다시 반복문을 돈다.
 >
@@ -149,7 +149,7 @@ T.root.color = BLACK;//z가 root 노드였을 경우 red일테니 black로 바�
 
 **_Case 1: z의 uncle y가 red_**
 
-![Figure 3](https://github.com/chatsh1re/chatsh1re.github.io/blob/master/_posts/images/RB%20Tree/Figure3.png?raw=true)
+![Figure 3](https://github.com/yongjulejule/yongjulejule.github.io/blob/master/_posts/images/RB%20Tree/Figure3.png?raw=true)
 
 > `z`와 `z.parent` 가 둘 다 `red`로 property 4를 위반했다. (a), (b) 상황에서 같은 논리를 통해 이를 해결 할 수 있다. $\alpha, \beta, \gamma, \delta, \epsilon$ 는 subtree이며 모두 같은 black-height를 갖고 있다(property 5). Case 1의 코드는 몇몇 노드의 색깔을 property 5의 성질을 유지하면서 바꿔준다. 그리고 `z.parent.parent` 를 새로운 `z` 인 `z'` 로 한다. 그러면 property 4의 위반은 이 `z'` 에서만 발생 할 수 있다.
 
@@ -165,7 +165,7 @@ T.root.color = BLACK;//z가 root 노드였을 경우 red일테니 black로 바�
 
 **_Case 3: z의 uncle y가 black 이고 z가 left child_**
 
-![Figure 4](https://github.com/chatsh1re/chatsh1re.github.io/blob/master/_posts/images/RB%20Tree/Figure4.png?raw=true)
+![Figure 4](https://github.com/yongjulejule/yongjulejule.github.io/blob/master/_posts/images/RB%20Tree/Figure4.png?raw=true)
 
 > `color`를 고려하며 회전을 하기 때문에 property 5를 위반하지 않으며, Case 3이 끝난 후 반복문이 종료된다.
 
@@ -436,7 +436,7 @@ void	rightRotate(t_rbt **rbt, t_rbt *nil)
 }
 ```
 
-전체 코드는 [깃허브](https://github.com/chatsh1re/Algorithm/tree/master/tree/Red_black)에서 볼 수 있으며 `make` 명령어를 통해 컴파일해서 확인할 수 있다. (Unix환경에서 gcc 컴파일러를 사용했습니다.)
+전체 코드는 [깃허브](https://github.com/yongjulejule/Algorithm/tree/master/tree/Red_black)에서 볼 수 있으며 `make` 명령어를 통해 컴파일해서 확인할 수 있다. (Unix환경에서 gcc 컴파일러를 사용했습니다.)
 
 ## 삽질🤦
 
