@@ -48,17 +48,17 @@ last_modified_at: '2021-04-27 09:16:00 +0900'
 >
 > 어떤 노드 `x`에서 `x`를 제외하고 `leaf` 까지 가면서 만나는 `black` 노드의 수를 _**black-height** of the node `x`_ 라고 하고 $bh(x)$ 라 쓰자.
 >
-> > Claim) 어떤 노드 `x`  를 `root`로 갖는 subtree는 최소한 $2^{bh(x)}-1$ 개의 노드를 갖고 있다.
+> > Claim) 어떤 노드 `x`  를 `root`로 갖는 subtree는 최대 $2^{bh(x)}-1$ 개의 노드를 갖고 있다.
 > >
 > > $x$ 의 높이를 이용해 귀납법을 통하여 증명하자.
 > >
-> > 만약 $x$ 의 높이가 0이면, $x$ 는 항상 `leaf(NIL)` 이며 따라서 $x$ 의 서브트리가 갖는 노드의 수는 최소 $2^{bh(x)}-1 = 2^0-1 = 0$ 개 이다.
+> > 만약 $x$ 의 높이가 0이면, $x$ 는 항상 `leaf(NIL)` 이며 따라서 $x$ 의 서브트리가 갖는 노드의 수는 최대 $2^{bh(x)}-1 = 2^0-1 = 0$ 개 이다.
 > >
-> > 이제 노드 $x$ 의 높이가 어떤 양수 $k$ 이고 두 자식 노드를 갖는다고 해보자. 이 두 자식 노드는 `red` 인지 `black` 인지에 따라 $bh(x)$ 와 $bh(x)-1$ 의 black-height를 지닐 것이다. $x$ 의 자식 노드의 높이는 $k-1$ 이고 claim에 따라 이 자식 노드들의 subtree는 최소한 $2^{bh(x)-1}-1$ 개의 노드를 갖고 있다. 
+> > 이제 노드 $x$ 의 높이가 어떤 양수 $k$ 이고 두 자식 노드를 갖는다고 해보자. 이 두 자식 노드는 `red` 인지 `black` 인지에 따라 $bh(x)$ 와 $bh(x)-1$ 의 black-height를 지닐 것이다. $x$ 의 자식 노드의 높이는 $k-1$ 이고 claim에 따라 이 자식 노드들의 subtree는 최대 $2^{bh(x)-1}-1$ 개의 노드를 갖고 있다. 
 > >
-> > 따라서 $x$를 root로 갖는 subtree는 최소 $(2^{bh(x)-1}-1 +(2^{bh(x)-1}-1) + 1 = 2^{bh(x)}-1)$ 개의 노드를 갖고 있다.$\blacksquare$ 
+> > 따라서 $x$를 root로 갖는 subtree는 최대 $(2^{bh(x)-1}-1 +(2^{bh(x)-1}-1) + 1 = 2^{bh(x)}-1)$ 개의 노드를 갖고 있다.$\blacksquare$ 
 >
-> 이제 $h$ 를 트리의 높이라고 해보자. 위 Property 4에 의해  `root` 부터 `leaf`까지 이동하는 simple path에서 `root`를 포함해 최소한 절반의 node들은 black이다. 즉, `root` 노드의 black-height는 적어도 $h/2$가 된다.
+> 이제 $h$ 를 트리의 높이라고 해보자. 위 Property 4에 의해  `root` 부터 `leaf`까지 이동하는 simple path에서 `root`를 포함해 최대 절반의 node들은 black이다. 즉, `root` 노드의 black-height는 적어도 $h/2$가 된다.
 >
 > 따라서 $n \ge 2^{h/2}-1$ 이고, $1$ 을 좌변으로 이항한 뒤 양쪽에 로그를 씌우면
 >
@@ -82,7 +82,7 @@ Red-Black Tree의 성질을 유지하면서 `insert, delete` 를 하기 위해�
 
 `insert`는 단순히 BST 성질에 따라 삽입하고, 마지막에 `z.color` 를 설정한 뒤 트리 전체를 수정해주면 된다.
 
-```c
+```python
 RBinsert(T, z) //T는 트리, z 는 삽입할 노드
   y = T.nil
   x = T.root
@@ -107,7 +107,7 @@ RBinsertFixup(T, z)
 
 트리 전체를 Red-Black 트리에 맞게 수정하는 과정이 복잡한데, 일단 pseudo code를 보자.
 
-```c
+```python
 RBinsertFixup(T, z)
   while z.p.color == RED
     if z.p == z.p.p.left
